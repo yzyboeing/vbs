@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.venv/
+work/
+outputs/
+*.mp4
+*.mkv
+*.mov
+*.wav
+*.mp3
+workflow-manifest.json

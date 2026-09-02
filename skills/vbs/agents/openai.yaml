@@ -1,0 +1,4 @@
+interface:
+  display_name: "VBS"
+  short_description: "Review-gated transcription, translation, and subtitle burn-in"
+  default_prompt: "Use $vbs to create reviewed English and Chinese subtitles for this video."
