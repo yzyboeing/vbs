@@ -1,5 +1,7 @@
 # VBS — Video Bilingual Subtitles
 
+跨 AI 统一入口：[AI_INDEX.md](https://github.com/yzyboeing/flight-notes-toolkit/blob/main/AI_INDEX.md)。版本化 Skill 包使用本仓库 Releases 中的 `skill-vX.Y.Z` 标签；不要与配置版本混用。安装、环境检查与更新方式见 [分发说明](https://github.com/yzyboeing/flight-notes-toolkit/blob/main/DISTRIBUTION.md)。私有包及资料仍受本仓库的保密和授权边界约束。
+
 一个带人工审核门禁的 Codex Skill，用于把本地视频或视频链接处理为经过确认的英文字幕、简体中文字幕、中英双语字幕和烧录成片。
 
 VBS 的重点不是“一键生成后直接发布”，而是把最容易出错的英文听写和技术翻译放在烧录之前逐步确认，避免漏词、错误数字、术语误译被永久写入视频。

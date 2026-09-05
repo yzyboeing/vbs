@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "vbs",
+  "version": "1.0.0",
+  "repository": "https://github.com/yzyboeing/vbs",
+  "visibility": "public",
+  "root": "skills/vbs",
+  "extra_files": {
+    "LICENSE": "LICENSE",
+    "ACKNOWLEDGEMENTS.md": "ACKNOWLEDGEMENTS.md"
+  },
+  "include": [
+    "SKILL.md",
+    "AGENTS.md",
+    "references/*",
+    "scripts/*",
+    "requirements-asr.txt",
+    "agents/*"
+  ],
+  "prompt": [
+    "SKILL.md",
+    "AGENTS.md",
+    "references/*.md"
+  ],
+  "stages": {
+    "rules": [
+      "file:SKILL.md"
+    ],
+    "review": [
+      "file:scripts/checkpoint.py",
+      "file:scripts/validate_srt.py"
+    ],
+    "fetch": [
+      "bin:ffmpeg",
+      "bin:ffprobe",
+      "bin:yt-dlp"
+    ],
+    "burn": [
+      "bin:ffmpeg",
+      "bin:ffprobe"
+    ]
+  },
+  "limitations": [
+    "Run scripts/check_dependencies.py for JZSub and ASR checks using the task interpreter.",
+    "FFmpeg discovery does not prove libass, fonts, codec compatibility, ASR model availability or QA.",
+    "All three human review gates remain unchanged."
+  ],
+  "next_checks": [
+    "python3 scripts/check_dependencies.py"
+  ]
+}
