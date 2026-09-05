@@ -1,19 +1,10 @@
 # Changelog
 
-## [0.1.1] - 2026-09-05
+## 0.1.1 — 2026-09-05
 
-### Changed
-- Tightened the approval semantics at both review gates: receiving a corrected
-  file alone no longer counts as approval. Continuation now requires the user's
-  explicit approval of the exact version, or a corrected replacement that the
-  user explicitly designates for continuation. Approval binds to the exact
-  artifact version; unchanged approved versions do not require repeated approval.
-  (`skills/vbs/SKILL.md`, `skills/vbs/references/checkpoints-and-artifacts.md`)
-
-### Added
-- `skills/vbs/AGENTS.md` — entry point for AI assistants: authorization
-  boundary, capability self-check with commands verified on a real machine,
-  full vs. limited tier matrix, rule sources, and repository red lines.
+- 收紧两处审核关口的「批准」定义：**收到修正文件本身不再视为批准**。继续执行需要用户明确批准该具体版本，或提供修正文件并明确指示按该版本继续。
+- 批准绑定到具体文件版本；版本未变化时不重复请求批准。
+- 新增 `skills/vbs/AGENTS.md`：AI 助手入口，含授权边界、经实机验证的能力自检命令、完整／受限档位对照、规则真源与仓库红线。
 
 ## 0.1.0 — 2026-09-02
 
