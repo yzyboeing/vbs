@@ -86,6 +86,17 @@ $vbs /本地视频路径
 
 VBS 不保存或输出浏览器 Cookie、Token、密码等凭据，也不会绕过 DRM、付费墙、验证码或平台安全限制。
 
+### 统一 MLX Whisper 环境
+
+Apple Silicon Mac 可以把 Python 3.12、固定版本的 MLX Whisper 和模型放在独立目录，通过 `~/.config/vbs/runtime.json` 供不同 Codex 对话共同使用。VBS 不修改系统 Python，也不把本机绝对路径提交到仓库。
+
+```bash
+python3 skills/vbs/scripts/run_asr.py --check
+python3 skills/vbs/scripts/check_dependencies.py --require asr
+```
+
+环境格式、故障说明和手动调用方法见 [依赖说明](skills/vbs/references/dependencies.md)。
+
 ## 交付阶段
 
 ### 1. 英文审核包
@@ -125,6 +136,9 @@ python3 skills/vbs/scripts/compare_asr.py pass-a.srt pass-b.srt \
 # 查看工作流阶段和批准文件状态
 python3 skills/vbs/scripts/checkpoint.py status job
 python3 skills/vbs/scripts/checkpoint.py verify job
+
+# 检查统一 MLX Whisper 环境
+python3 skills/vbs/scripts/run_asr.py --check
 ```
 
 ## 测试
