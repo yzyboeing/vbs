@@ -11,6 +11,7 @@
 - 新增 `run_asr.py`，在转写前核验 Python、MLX Whisper、命令行和本地模型，并自动使用已配置模型。
 - 依赖检查现在会报告当前解释器与共享 ASR 环境的独立状态和明确故障原因。
 - 锁定 MLX Whisper 运行时依赖为 `0.4.3`，并增加共享运行时回归测试。
+- 将 GitHub Actions 更新到 Node.js 24 兼容的 `actions/checkout@v7` 和 `actions/setup-python@v7`。
 
 ## 0.1.1 — 2026-09-05
 
