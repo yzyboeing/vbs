@@ -13,7 +13,7 @@ python3 <skill-dir>/scripts/checkpoint.py record <job-dir> \
   --artifact review_notes=english-review-notes.tsv
 ```
 
-Approval checkpoints require a concise note containing the user's explicit approval or stating that the user supplied a corrected replacement:
+Approval checkpoints require a concise note recording the user's explicit approval of the exact version, including a corrected replacement explicitly designated for continuation. Receiving a corrected file alone is not approval; unchanged approved versions do not require repeated approval:
 
 ```bash
 python3 <skill-dir>/scripts/checkpoint.py record <job-dir> \

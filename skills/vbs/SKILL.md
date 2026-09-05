@@ -12,13 +12,15 @@ Process one authorized, decodable video per job directory. Reuse JZSub for links
 Treat this as a staged workflow even when the user initially requests an end-to-end result. A request to complete the whole job is not approval of unseen subtitles.
 
 1. Deliver the English review package and stop. Do not translate or burn.
-2. Continue only after the user explicitly approves the English SRT or supplies a corrected replacement.
+2. Continue only after the user explicitly approves the English SRT or supplies a corrected replacement with an explicit instruction to continue with that version.
 3. Deliver the Chinese and bilingual review package and stop. Do not burn.
-4. Continue only after the user explicitly approves the bilingual subtitles or supplies corrected replacements.
+4. Continue only after the user explicitly approves the bilingual subtitles or supplies corrected replacements with an explicit instruction to continue with those versions.
 5. Deliver a `[REVIEW]` burned video and the QA report, then stop.
 6. Export the unmarked final video only after the user explicitly approves that review video.
 
 If the user changes approved English, invalidate every translation and video derived from it. If the user changes approved Chinese, invalidate every rendered or burned video derived from it. Never infer approval from silence, general praise, or a request that still mentions unresolved errors.
+
+Receiving a corrected file alone is not approval. If the user explicitly says to continue with that version, record approval without asking again. Approval binds to the exact artifact version; unchanged approved versions do not require repeated approval.
 
 Use `scripts/checkpoint.py` for every job so approval state and artifact hashes survive across turns. Start each resumed turn with `checkpoint.py status` and `checkpoint.py verify`.
 
@@ -57,7 +59,7 @@ Deliver only:
 - `english-source-original.*` when one exists
 - a short method report stating caption kind or Whisper model, detected language, and unresolved uncertainties
 
-Validate `english-review.srt` with `scripts/validate_srt.py`, record `english-draft-ready`, deliver the package, and stop. After explicit approval or receipt of a corrected file, save the exact approved file as `english-approved.srt`, record `english-approved`, and do not edit it in later stages.
+Validate `english-review.srt` with `scripts/validate_srt.py`, record `english-draft-ready`, deliver the package, and stop. After explicit approval of the exact file, including a corrected replacement explicitly designated for continuation, save the exact approved file as `english-approved.srt`, record `english-approved`, and do not edit it in later stages.
 
 Read [references/checkpoints-and-artifacts.md](references/checkpoints-and-artifacts.md) for filenames and approval recording.
 
@@ -72,7 +74,7 @@ Create and validate:
 - `bilingual-transcript.txt`
 - `translation-review-notes.tsv` for genuine terminology or meaning uncertainties
 
-Record `bilingual-draft-ready`, deliver the package, and stop. After explicit approval or corrected replacements, save `chinese-approved.srt` and `bilingual-approved.srt`, validate them, record `bilingual-approved`, and do not edit their text during rendering.
+Record `bilingual-draft-ready`, deliver the package, and stop. After explicit approval of the exact files, including corrected replacements explicitly designated for continuation, save `chinese-approved.srt` and `bilingual-approved.srt`, validate them, record `bilingual-approved`, and do not edit their text during rendering.
 
 Read [references/translation-and-rendering.md](references/translation-and-rendering.md) before translating aviation or other technical material and before rendering.
 
