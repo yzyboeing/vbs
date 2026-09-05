@@ -1,3 +1,8 @@
+# 2026-09-05 — Dependency portability
+
+- Add stage-specific dependency discovery, upstream JZSub installation guidance and failure tests.
+- Preserve artifact review gates; missing ASR does not block text-only checks or approved-subtitle burning.
+
 # Changelog
 
 ## 0.1.1 — 2026-09-05

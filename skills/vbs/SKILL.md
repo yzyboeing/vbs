@@ -26,6 +26,8 @@ Use `scripts/checkpoint.py` for every job so approval state and artifact hashes 
 
 ## Stage 0 — Ingest and select the route
 
+Read [dependencies](references/dependencies.md) and run `scripts/check_dependencies.py` with the Python interpreter intended for the task. Check only the stages required by the selected route. Missing ASR does not block review of provided subtitles or burning approved subtitles.
+
 Create a new empty job directory. Inspect local inputs with `ffprobe`; probe links with the installed JZSub fetcher before downloading when practical. Confirm the audio language when detection is ambiguous. If the audio is not English, ask whether the user still wants an English translation transcript; do not mislabel non-English ASR as an English transcript.
 
 Choose and report one route:

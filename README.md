@@ -149,3 +149,14 @@ VBS 是独立项目，不隶属于 JZSub，也不代表 JZSub 官方。详细说
 ## 许可证
 
 [MIT](LICENSE)
+
+## 依赖自检与跨 AI 使用
+
+```bash
+python3 skills/vbs/scripts/check_dependencies.py
+python3 skills/vbs/scripts/check_dependencies.py --require fetch --require burn
+```
+
+只检查本次需要的阶段。缺少 Whisper 不会阻断已有字幕的文本检查；链接获取仍需上游 JZSub，详见 [依赖说明](skills/vbs/references/dependencies.md)。保留本机已维护的 JZSub，删除个人同名 GitHub 仓库不代表删除运行依赖。
+
+支持 Skill 的环境安装 `skills/vbs`；其他有文件能力的代理读取该目录的 `SKILL.md` 和引用文件。只有聊天能力时可讨论或审核字幕，无法替代脚本、转写、烧录与目视检查。安装版本以 Git 提交号记录，真实测试通过不代表每种视频和平台都能处理。
