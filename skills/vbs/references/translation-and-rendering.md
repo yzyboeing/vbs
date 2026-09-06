@@ -4,6 +4,8 @@
 
 Translate from complete source sentences while retaining the approved cue timing and cue order. Each bilingual review cue must contain exactly two semantic lines: approved English first, Simplified Chinese second. Do not use surrounding cues to add information absent from the source.
 
+The approved English cue boundary is part of translation quality. Before English approval, replace mechanical chunks with complete sentences or self-contained clauses; avoid orphan words and incomplete phrases that require the next screen to make sense. A long cue may wrap visually without changing its timestamp. If readability requires a timing split, return to English review and split at a natural clause boundary before translation.
+
 For technical material:
 
 - preserve numbers, units, aircraft/engine identifiers, limitations, conditions, warnings, and modality;
@@ -20,7 +22,9 @@ Use aspect-ratio-aware styles. Default to a bottom-anchored English-over-Chinese
 
 Target no more than two visual lines per language. If a cue requires more, return to the bilingual review stage and obtain approval for a new cue split rather than shrinking text until unreadable. Maintain visible margins on landscape, portrait, and square video.
 
-Prefer the highest-quality master and one final video encode. Preserve frame rate, dimensions, aspect ratio, audio channel layout, and audio codec when compatible. Do not promise HDR or Dolby Vision preservation through an SDR compatibility encode.
+Prefer the highest-quality master and one final video encode. Preserve frame rate, dimensions, aspect ratio, audio channel layout, and audio codec when compatible. Use the source video as the timing authority. With a sparse image overlay, avoid shortest-stream behavior that can stop a few frames early; compare the output video-stream duration and frame count with the source. Do not promise HDR or Dolby Vision preservation through an SDR compatibility encode.
+
+Use the `[REVIEW]` filename as the normal review marker instead of burning a visible watermark. If a visible watermark is required, its later removal creates a new render: rebuild the final from the source master and approved subtitles and repeat media and visual QA.
 
 ## Burn QA
 

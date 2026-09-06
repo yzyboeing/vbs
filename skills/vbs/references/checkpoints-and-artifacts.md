@@ -36,9 +36,11 @@ If an approved upstream artifact changes, do not record a downstream stage. Inva
 ```bash
 python3 <skill-dir>/scripts/checkpoint.py invalidate <job-dir> --from english
 python3 <skill-dir>/scripts/checkpoint.py invalidate <job-dir> --from bilingual
+python3 <skill-dir>/scripts/checkpoint.py invalidate <job-dir> --from review
+python3 <skill-dir>/scripts/checkpoint.py invalidate <job-dir> --from final
 ```
 
-English invalidation returns the job to `english-draft-ready` and removes every later checkpoint. Bilingual invalidation returns it to `bilingual-draft-ready` while retaining the approved English checkpoint.
+English invalidation returns the job to `english-draft-ready` and removes every later checkpoint. Bilingual invalidation returns it to `bilingual-draft-ready` while retaining the approved English checkpoint. Review invalidation returns to `bilingual-approved` when the burned review must be rebuilt. Final invalidation returns to `final-approved` when a delivered file fails final verification but the approved review remains valid.
 
 ## Required names
 

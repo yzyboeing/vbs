@@ -149,7 +149,13 @@ def cmd_status(args: argparse.Namespace) -> None:
 
 def cmd_invalidate(args: argparse.Namespace) -> None:
     path, data = load(args.job_dir)
-    target = "english-draft-ready" if args.from_stage == "english" else "bilingual-draft-ready"
+    targets = {
+        "english": "english-draft-ready",
+        "bilingual": "bilingual-draft-ready",
+        "review": "bilingual-approved",
+        "final": "final-approved",
+    }
+    target = targets[args.from_stage]
     target_index = STAGES.index(target)
     if STAGES.index(data["current_stage"]) < target_index:
         raise SystemExit(f"Cannot invalidate {args.from_stage} from stage {data['current_stage']}")
@@ -191,7 +197,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     invalidate = sub.add_parser("invalidate")
     invalidate.add_argument("job_dir")
-    invalidate.add_argument("--from", dest="from_stage", required=True, choices=["english", "bilingual"])
+    invalidate.add_argument(
+        "--from",
+        dest="from_stage",
+        required=True,
+        choices=["english", "bilingual", "review", "final"],
+    )
     invalidate.set_defaults(func=cmd_invalidate)
     return parser
 

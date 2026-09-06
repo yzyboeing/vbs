@@ -100,6 +100,44 @@ class ToolTests(unittest.TestCase):
             self.assertEqual(tampered.returncode, 3)
             self.assertIn("changed after recording", tampered.stdout)
 
+    def test_checkpoint_can_invalidate_review_and_final_outputs(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            source = root / "source.bin"
+            artifact = root / "artifact.bin"
+            source.write_bytes(b"test source")
+            artifact.write_bytes(b"stable artifact")
+
+            self.run_script("checkpoint.py", "init", root, "--source", source, "--route", "whisper-asr")
+            stages = [
+                ("english-draft-ready", False),
+                ("english-approved", True),
+                ("bilingual-draft-ready", False),
+                ("bilingual-approved", True),
+                ("review-burn-ready", False),
+                ("final-approved", True),
+                ("delivered", False),
+            ]
+            for stage, needs_approval in stages:
+                arguments = [
+                    "checkpoint.py", "record", root, "--stage", stage,
+                    "--artifact", f"artifact={artifact}",
+                ]
+                if needs_approval:
+                    arguments.extend(["--approval-note", f"Approved {stage}"])
+                self.run_script(*arguments)
+
+            self.run_script("checkpoint.py", "invalidate", root, "--from", "final")
+            status = json.loads(self.run_script("checkpoint.py", "status", root).stdout)
+            self.assertEqual(status["current_stage"], "final-approved")
+            self.assertNotIn("delivered", status["recorded_stages"])
+
+            self.run_script("checkpoint.py", "invalidate", root, "--from", "review")
+            status = json.loads(self.run_script("checkpoint.py", "status", root).stdout)
+            self.assertEqual(status["current_stage"], "bilingual-approved")
+            self.assertIn("bilingual-approved", status["recorded_stages"])
+            self.assertNotIn("review-burn-ready", status["recorded_stages"])
+
 
 if __name__ == "__main__":
     unittest.main()
