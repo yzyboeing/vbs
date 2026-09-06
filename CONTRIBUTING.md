@@ -7,10 +7,9 @@
 1. 不得在测试数据、日志或提交中包含视频平台 Cookie、Token、密码、私钥或个人字幕素材。
 2. 保留三个强制人工审核停点，除非变更明确增强而不是绕过人工确认。
 3. 新增或修改脚本时仅使用必要依赖，并补充能够验证实际行为的测试。
-4. 修改 Skill 后运行：
+4. 仅改 Skill 文本时运行下列包检查；修改脚本或审核状态契约时运行受影响的测试，跨模块变更再运行完整测试集。媒体转写和烧录不作为文字维护的例行测试：
 
 ```bash
-python3 -m unittest discover -s tests -v
 python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/vbs
 ```
 

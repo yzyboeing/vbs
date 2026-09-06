@@ -1,6 +1,6 @@
 ---
 name: vbs
-description: Create review-gated English transcripts, Chinese translations, bilingual subtitles, and burned-in videos from authorized local videos or video links. Use when a video may have manual, automatic, embedded, external, or no captions and the English and bilingual subtitles must be approved before rendering.
+description: "Create English and bilingual subtitles and burned videos with mandatory English, bilingual, and review-video approval gates. Supports local videos and authorized links."
 ---
 
 # Video Bilingual Subtitles
@@ -26,7 +26,7 @@ Use `scripts/checkpoint.py` for every job so approval state and artifact hashes 
 
 ## Stage 0 — Ingest and select the route
 
-Read [dependencies](references/dependencies.md) and run `scripts/check_dependencies.py`. Check only the stages required by the selected route. Prefer the shared Python and ASR runtime discovered from `VBS_RUNTIME_CONFIG` or `~/.config/vbs/runtime.json` when the default `python3` is older than 3.10 or lacks Whisper. Run `scripts/run_asr.py --check`, then use `scripts/run_asr.py` for both Whisper passes. Missing ASR does not block review of provided subtitles or burning approved subtitles.
+Read [dependencies](references/dependencies.md) and run `scripts/check_dependencies.py`. Check only the stages required by the selected route. Prefer the shared Python and ASR runtime discovered from `VBS_RUNTIME_CONFIG` or `~/.config/vbs/runtime.json` when the default `python3` is older than 3.10 or lacks Whisper. Only for an ASR route, run `scripts/run_asr.py --check`, then use `scripts/run_asr.py` for both Whisper passes. Missing ASR does not block review of provided subtitles or burning approved subtitles.
 
 Create a new empty job directory. Inspect local inputs with `ffprobe`; probe links with the installed JZSub fetcher before downloading when practical. Confirm the audio language when detection is ambiguous. If the audio is not English, ask whether the user still wants an English translation transcript; do not mislabel non-English ASR as an English transcript.
 
@@ -90,6 +90,6 @@ Record `review-burn-ready`, deliver the review video and QA report, and stop.
 
 ## Stage 4 — Final delivery
 
-After explicit approval of the review video, record `final-approved`. If no subtitle or rendering change is requested, promote the byte-identical review video to `<title> bilingual FINAL.mp4`; otherwise invalidate the affected checkpoint and repeat the necessary stage. Verify the final file again, record `delivered`, and report actual duration, resolution, frame rate, codecs, subtitle route, caption kind, ASR model when used, authentication use without account details, and remaining verification limits.
+After explicit approval of the review video, record `final-approved`. If no subtitle or rendering change is requested, promote the byte-identical review video to `<title> bilingual FINAL.mp4`; otherwise invalidate the affected checkpoint and repeat the necessary stage. Verify the promoted file matches the QA-approved review video by hash and verify checkpoint integrity; repeat media QA only if content or rendering changed. Record `delivered`, and report actual duration, resolution, frame rate, codecs, subtitle route, caption kind, ASR model when used, authentication use without account details, and remaining verification limits.
 
 Do not describe the video's technical claims as externally validated unless the user separately requested and received source verification.
